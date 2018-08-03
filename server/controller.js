@@ -1,4 +1,4 @@
- let house = require('./wizard')
+ //let house = require('./wizard')
  // [{
 //     id: 1,
 //     name: Family,
@@ -8,36 +8,42 @@
 //     zipcode: 84400
 // }]
 
-let id = 2
+//let id = 2
 
 module.exports = {
     getHouse: (req, res) =>{
-        res.status(200).send(house)
+        const db = req.app.get('db')
+        db.get_house().then(results =>{
+            res.status(200).send(results)
+        })
+        .catch(err=> {
+            console.log(err)
+            res.status(500).send('Its not working')
+        })
     },
     addHouse: (req,res) => {
+        const db = req.app.get('db')
         const {name, address, city, state, zipcode} = req.body
+        const{id} = req.params
 
-        const house1 = {
-            id,
-            name,
-            address,
-            city,
-            state,
-            zipcode
-        }
-        house.push(house1)
-        id++
-        res.status(200).send(house)
+        db.add_house([1,id]).then(results => {
+            res.status(200).send(results)
+        })
     },
 
     deleteHouse: (req, res) =>{
-        const{id}= req.params
-        let index= house.findIndex(s => s.id === +id)
+        let {id}= req.params
+        let db = req.app.get('db')
+        db.delete_house([id]).then(results => {
+            res.status(200).send(results)
+        })
 
-        if(index!== -1){
-            house.splice(index,1)
-        }
-        res.status(200).send(house)
+//         let index= house.findIndex(s => s.id === +id)
+// for(let i = 0; i< l
+//         if(index!== -1){
+//             house.splice(index,1)
+//         }
+//         res.status(200).send(house)
     }
 
 }

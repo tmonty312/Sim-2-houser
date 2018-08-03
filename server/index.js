@@ -15,8 +15,8 @@ massive(CONNECTION_STRING).then(db => {
     console.log('connected')
 })
 
-app.get('api/house', controller.getHouse)
-app.post('/api/house', contoller.addHouse)
+app.get('/api/house', controller.getHouse)
+app.post('/api/house', controller.addHouse)
 app.delete('/api/house/:id', controller.deleteHouse)
 
 
