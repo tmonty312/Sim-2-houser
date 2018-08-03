@@ -3,9 +3,10 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 
 export default class Wizard extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
+            id: '',
             name: '',
             address: '' ,
             city: '',
@@ -33,7 +34,7 @@ export default class Wizard extends Component {
         const {name, address, city, state, zipcode} = this.state
         const newHouse = {name, address, city, state, zipcode}
         axios.post('/api/house', newHouse).then(results =>{
-            this.props.updateHouse(results.data)
+            this.props.newHouse(results.data)
         })
     }
 

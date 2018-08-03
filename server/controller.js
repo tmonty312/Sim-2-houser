@@ -26,10 +26,19 @@ module.exports = {
         const {name, address, city, state, zipcode} = req.body
         const{id} = req.params
 
-        db.add_house([1,id]).then(results => {
+        db.add_house([name, address, city, state, zipcode, id]).then(results => {
             res.status(200).send(results)
         })
     },
+    // updateHouse: (req.res) => {
+    //     const db = req.app.get('db')
+    //     let {id} = req.params
+    //     let {name, address, city, state, zipcode} = req.query
+
+    //     db.update_house([+name, address, city, state, zipcode, id]).then(results =>{
+    //     res.status(200).send(results)
+    //     })
+    // },
 
     deleteHouse: (req, res) =>{
         let {id}= req.params
