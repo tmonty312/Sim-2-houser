@@ -1,18 +1,38 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {Route} from 'react-router-dom'
+import Dashboard from './components/Dashboard';
+import Wizard from './components/Wizard';
+import Header from './components/Header';
+import Routes from './routes';
+import axios from 'axios'
+
 
 class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      house: []
+    }
+  }
+
+  componentDidMount(){
+    axios.get('/api/house').then(results => {
+      this.setState({house: results.data})
+    })
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div>
+      <Header/>
+        </div>
+        <div>
+          <Route path="/" component={Dashboard} />
+          <Route path="/wizard" component={Wizard} />
+        </div>
       </div>
     );
   }
